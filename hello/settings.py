@@ -112,6 +112,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    "templates"
 )
 
 INSTALLED_APPS = (
@@ -125,6 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'reading_notes',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -155,7 +157,7 @@ LOGGING = {
         },
     }
 }
-import dj_database_url
-DATABASES['default']  = dj_database_url.config()
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#import dj_database_url
+#DATABASES['default']  = dj_database_url.config()
+#
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
