@@ -55,6 +55,8 @@
       .container .credit {
         margin: 20px 0;
       }        
+
+      {% block css %}{% endblock css %}
     </style>
 </head>
 <body>
@@ -66,5 +68,6 @@
     {% block footer %}{% endblock footer %}
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+    {% block script %}{% endblock script %}
 </body>
 </html>

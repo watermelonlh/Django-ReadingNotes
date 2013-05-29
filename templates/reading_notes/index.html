@@ -6,14 +6,10 @@
         <p>身体和灵魂，总有一个要在路上。</p>
     </div>
     <div class="row tabbable tabs-left">
-        <ul class="span3 nav nav-tabs">
-            <li class="active"><a href="#">2012 DEC</a></li>
-            <li><a href="#">2013 JAN</a></li>
+        <ul id="monthList" class="span3 nav nav-tabs">
         </ul>
         <div class="span9 tab-content">
-            <ul class="nav nav-pills nav-stacked">      
-                <li class="active"><a href="#">ARTICLE1</a></li>
-                <li><a href="#">ARTICLE2</a></li>
+            <ul id="readings" class="nav nav-pills nav-stacked">      
             </ul>
         </div>          
     </div>
@@ -25,3 +21,44 @@
       </div>
     </div>
 {% endblock footer %}
+{% block css %}
+    .date {
+        text-transform: uppercase;
+    }
+{% endblock css %}
+{% block script %}
+    <script>
+        function reloadReadings(year, month) {
+            $('#readings li').remove();
+            $.getJSON("/readings", { year : year, month : month }, function(data) {
+               console.log(data); 
+               $.each(data, function(index, value) {
+                console.log(value);
+                var li = $('<li class="text-center"><a></a></li>'); 
+                $("a", li).text(value.title);
+                $("a", li).attr("href", "/readings/" + value.id);
+                $('#readings').append(li);
+               })
+            });
+        }   
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        var now = new Date();
+        for (var year = now.getFullYear(); year >= 2013; year--)
+            for (var month = now.getMonth(); month >= 0; month--)
+            {
+                var li = $('<li class="text-center"><a class="date"></a></li>'); 
+                $("a", li).text(year.toString() + ' ' + monthNames[month]);
+                li.attr('year', year);
+                li.attr('month', month);
+                $('#monthList').append(li);
+            }
+        var li = $('#monthList').find('li:eq(0)');
+        li.addClass("active");
+        reloadReadings(li.attr('year'), li.attr('month'));
+        $('#monthList li').click(function() {
+            $('#monthList li').removeClass('active');
+            $(this).addClass('active');
+            reloadReadings($(this).attr('year'), $(this).attr('month'));
+        });
+    </script>
+{% endblock script %}
