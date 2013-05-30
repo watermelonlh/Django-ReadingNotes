@@ -13,7 +13,7 @@ def readings(request):
     year = request.GET.get('year')
     month = int(request.GET.get('month')) + 1
 
-    res = Note.objects.filter(create_date__year=year, create_date__month=month).order_by('reading')
+    res = Note.objects.filter(create_date__year=year, create_date__month=month).distinct('reading_id')
     return HttpResponse(simplejson.dumps([{ "title" : unicode(a.reading), "reading_id" : a.reading_id } for a in res]), mimetype="application/json")
 
 def detail(request, reading_id):
