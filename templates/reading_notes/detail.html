@@ -1,0 +1,49 @@
+{% extends "reading_notes/base.html" %}
+
+{% block content %}
+        
+    <div class="row detail-head">
+        <div class="span8 offset2">
+            <blockquote class="">
+              <p>{{ reading.title }}</p>
+              {% if reading.author %}       
+                  <small>{{ reading.author }}</small>
+              {% else %}
+                  <br>
+              {% endif %}
+            </blockquote>
+        </div>
+    </div>
+    <div class="row">
+    <div class="span8 offset2">
+<table class="table table-striped">
+  <tbody>
+    {% for note in notes %}
+  <tr>
+		<td class="span3"><p class="muted"><small>{{ note.create_date|date:'Y-m-d H:i:s' }}</small></p></td>
+		<td class="span9"><p><em>{{ note.context }}</em></p></td>
+	</tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+    </div>
+    </div>
+{% endblock content %}
+{% block css %}
+    .detail-head {
+        margin-top: 50px
+    }
+    blockquote small:before {
+        content : ""
+    }
+{% endblock css %}
+{% block footer %}
+    <div id="footer">
+      <div class="container">
+        <div class="span8 offset2">
+        <p class="muted credit">This project is maintained by <a href="http://watermelonl.info">watermelon</a>.</p>
+        </div>
+      </div>
+    </div>
+{% endblock footer %}

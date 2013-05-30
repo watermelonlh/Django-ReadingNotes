@@ -15,7 +15,7 @@
     </div>
 {% endblock content %}
 {% block footer %}
-<div id="footer">
+    <div id="footer">
       <div class="container">
         <p class="muted credit">This project is maintained by <a href="http://watermelonl.info">watermelon</a>.</p>
       </div>
@@ -36,7 +36,7 @@
                 console.log(value);
                 var li = $('<li class="text-center"><a></a></li>'); 
                 $("a", li).text(value.title);
-                $("a", li).attr("href", "/readings/" + value.id);
+                $("a", li).attr("href", "/detail/" + value.reading_id);
                 $('#readings').append(li);
                })
             });

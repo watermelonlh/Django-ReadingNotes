@@ -1,3 +1,4 @@
+import time
 from django.db import models
 
 # Create your models here.
@@ -20,4 +21,3 @@ class Note(models.Model):
     create_date = models.DateTimeField('date created')
     def __unicode__(self):
         return unicode(self.reading) + ":" + self.context
-
