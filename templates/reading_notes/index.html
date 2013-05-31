@@ -36,13 +36,19 @@
             $('#readings li').remove();
             $.getJSON("/readings", { year : year, month : month }, function(data) {
                console.log(data); 
-               $.each(data, function(index, value) {
-                console.log(value);
-                var li = $('<li class="text-center"><a></a></li>'); 
-                $("a", li).text(value.title);
-                $("a", li).attr("href", "/detail/" + value.reading_id);
-                $('#readings').append(li);
-               })
+               if (data.length > 0)
+               {
+                   $.each(data, function(index, value) {
+                    console.log(value);
+                    var li = $('<li class="text-center"><a></a></li>'); 
+                    $("a", li).text(value.title);
+                    $("a", li).attr("href", "/detail/" + value.reading_id);
+                    $('#readings').append(li);
+                   })
+               } else {
+                    $('#readings').append('<li class="text-center"><a href="mailto:watermelonlh@gmail.com">本月没有读书，快督促她看书。</a></li>');
+               }
+
             });
         }   
         //var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
