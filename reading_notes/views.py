@@ -26,4 +26,4 @@ def detail(request, reading_id):
 
 def update(request):
     update_notes_from_github()
-    return render(request, 'reading_notes/update.html')
+    return HttpResponse("Update finished.")
