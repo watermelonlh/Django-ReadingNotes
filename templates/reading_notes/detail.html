@@ -22,7 +22,7 @@
                 {% for note in notes %}
               <tr>
                     <td class="span2"><p class="muted"><small>{{ note.create_date|date:'Y-m-d H:i:s' }}</small></p></td>
-                    <td class="span10"><p><em>{{ note.context }}</em></p></td>
+                    <td class="span10"><p>{{ note.context }}</p></td>
                 </tr>
                 {% endfor %}
               </tbody>
