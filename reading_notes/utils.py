@@ -28,9 +28,13 @@ def update_notes_from_github():
                 if (soup.body.h5 != None):
                     author, = soup.body.h5.contents
                 reading, created = Reading.objects.get_or_create(title=str(title), author=str(author), reading_type=reading_type)
-                if (not created): 
-                    continue
 
+                if (not created):
+                    exist_note = Note.objects.filter(reading=reading).order_by('-create_date')
+                    if (not exist_note):
+                        latest_note = None
+                    else:
+                        latest_note = exist_note[0]
                 divs = soup.body.div.findAll('div')
                 divs_len = len(divs)
 
@@ -41,7 +45,8 @@ def update_notes_from_github():
                 while i + 3 < divs_len:
                     note_date = timezone.make_aware(datetime.strptime(divs[i + 1].contents[0], "%Y-%m-%d %H:%M:%S"), timezone.get_current_timezone())
                     note_contents = divs[i + 2].contents[0]
-                    Note.objects.get_or_create(reading=reading, context=str(note_contents), create_date=note_date)
+                    if (latest_note is None or note_date > latest_note.create_date):
+                        Note.objects.get_or_create(reading=reading, context=str(note_contents), create_date=note_date)
                     #print "'%s'" % str(note_contents)
                     i += 3
         except Exception as e:
