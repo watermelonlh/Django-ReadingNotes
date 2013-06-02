@@ -20,7 +20,7 @@
             <table class="table table-striped">
               <tbody>
                 {% for note in notes %}
-              <tr>
+                <tr>
                     <td class="span2"><p class="muted"><small>{{ note.create_date|date:'Y-m-d H:i:s' }}</small></p></td>
                     <td class="span10"><p>{{ note.context }}</p></td>
                 </tr>
@@ -28,6 +28,9 @@
               </tbody>
 
             </table>
+        </div>
+        <div class="row">
+            <p class="text-center"><a href="/">回到主页</a></p>
         </div>
         <div class="row">
             <br>
