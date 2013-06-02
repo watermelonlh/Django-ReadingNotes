@@ -1,3 +1,4 @@
 vevn
 *.pyc
 static/*
+hello/settings.py
