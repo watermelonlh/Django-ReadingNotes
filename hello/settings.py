@@ -73,6 +73,7 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     ('bootstrap', "static_files/bootstrap"),
     ('admin', "static_files/admin"),
+    ('jQuery', "static_files/jQuery"),
 )
 
 # List of finder classes that know how to find static files in
@@ -159,5 +160,4 @@ LOGGING = {
 }
 import dj_database_url
 DATABASES['default']  = dj_database_url.config()
-
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
