@@ -63,13 +63,18 @@
                 li.attr('month', month);
                 $('#monthList').append(li);
             }
-        var li = $('#monthList').find('li:eq(0)');
+		if($.cookie('lastSelectedLiIndex') === null) { 
+			$.cookie('lastSelectedLiIndex', 0);
+		}
+		var lastSelectedLiIndex = $.cookie('lastSelectedLiIndex');
+		var li = $('#monthList').find('li:eq(' + lastSelectedLiIndex + ')');
         li.addClass("active");
         reloadReadings(li.attr('year'), li.attr('month'));
         $('#monthList li').click(function() {
             $('#monthList li').removeClass('active');
             $(this).addClass('active');
             reloadReadings($(this).attr('year'), $(this).attr('month'));
+			$.cookie('lastSelectedLiIndex', $('#monthList li').index(this));
         });
     </script>
 {% endblock script %}
