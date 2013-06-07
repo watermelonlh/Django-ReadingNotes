@@ -11,7 +11,9 @@
                 <ul id="monthList" class="span3 nav nav-tabs">
                 </ul>
                 <div class="span9 tab-content">
-					<img id = "loading" src="{{ STATIC_URL }}images/lodaing.gif" class="img-rounded" style="display: none" />
+                    <div id ="loading" class="pagination pagination-centered" style="display:none ">
+                    <img src="{{ STATIC_URL }}images/loading.gif" class="img-rounded" />
+                    </div>
 					<ul id="readings" class="nav nav-pills nav-stacked">      
                     </ul>
                 </div>          
@@ -19,6 +21,11 @@
         </div>          
     </div>
 {% endblock content %}
+{% block css %}
+    #loading img {
+        max-width: 140px;
+    }
+{% endblock css %}
 {% block footer %}
     <div id="footer">
       <div class="container">
@@ -26,11 +33,6 @@
       </div>
     </div>
 {% endblock footer %}
-{% block css %}
-    .date {
-        text-transform: uppercase;
-    }
-{% endblock css %}
 {% block script %}
     <script>
         function reloadReadings(year, month) {
