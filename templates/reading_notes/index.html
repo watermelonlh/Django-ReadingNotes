@@ -11,7 +11,8 @@
                 <ul id="monthList" class="span3 nav nav-tabs">
                 </ul>
                 <div class="span9 tab-content">
-                    <ul id="readings" class="nav nav-pills nav-stacked">      
+					<img id = "loading" src="{{ STATIC_URL }}images/lodaing.gif" class="img-rounded" style="display: none" />
+					<ul id="readings" class="nav nav-pills nav-stacked">      
                     </ul>
                 </div>          
             </div>
@@ -34,6 +35,7 @@
     <script>
         function reloadReadings(year, month) {
             $('#readings li').remove();
+			$("#loading").css('display', '');
             $.getJSON("/readings", { year : year, month : month }, function(data) {
                console.log(data); 
                if (data.length > 0)
@@ -49,7 +51,9 @@
                     $('#readings').append('<li class="text-center"><a href="mailto:watermelonlh@gmail.com">本月没有读书，快督促她看书。</a></li>');
                }
 
-            });
+            }).always(function () {
+				$("#loading").css('display', 'none');
+			});
         }   
         //var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         var monthNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
