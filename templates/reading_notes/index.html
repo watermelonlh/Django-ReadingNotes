@@ -67,10 +67,13 @@
                 li.attr('month', month);
                 $('#monthList').append(li);
             }
-		if($.cookie('lastSelectedLiIndex') === null) { 
+		if($.cookie('lastSelectedLiIndex') == null) { 
 			$.cookie('lastSelectedLiIndex', 0);
+			$.cookie('lastSelectedYear', now.getFullYear());
+			$.cookie('lastSelectedMonth', now.getMonth());
 		}
 		var lastSelectedLiIndex = $.cookie('lastSelectedLiIndex');
+        console.log(lastSelectedLiIndex);
 		var li = $('#monthList').find('li:eq(' + lastSelectedLiIndex + ')');
         li.addClass("active");
         reloadReadings(li.attr('year'), li.attr('month'));
@@ -79,6 +82,10 @@
             $(this).addClass('active');
             reloadReadings($(this).attr('year'), $(this).attr('month'));
 			$.cookie('lastSelectedLiIndex', $('#monthList li').index(this));
+			$.cookie('lastSelectedYear', $(this).attr('year'));
+			$.cookie('lastSelectedMonth', $(this).attr('month'));
+        console.log($.cookie('lastSelectedYear'));
+        console.log($.cookie('lastSelectedMonth'));
         });
     </script>
 {% endblock script %}
