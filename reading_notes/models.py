@@ -16,6 +16,7 @@ class Reading(models.Model):
     author = models.CharField(max_length=1024, null=True, blank=True)
     reading_type = models.ForeignKey(ReadingType)
     update_date = models.DateTimeField('date updated', default=datetime.datetime.utcnow().replace(tzinfo=utc))
+    #finished = models.BooleanField(default=True)
 
     def __unicode__(self):
         return "[" + self.reading_type.name + "]" + self.title
