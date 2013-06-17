@@ -1,47 +1,55 @@
 {% extends "reading_notes/base.html" %}
 
 {% block content %}
-    <script>
+<script>
 
-        var selectedYear = $.cookie('lastSelectedYear');
-        var selectedMonth = $.cookie('lastSelectedMonth');
+    var selectedYear = $.cookie('lastSelectedYear');
+    var selectedMonth = $.cookie('lastSelectedMonth');
 
-        function addNotes(year, month, note_date, note_content) {
-           var tr = $('<tr> \
-                        <td class="span2"><p class="muted"><small>' + note_date + '</small></p></td> \
-                        <td class="span10">' + note_content + '</td> \
-                    </tr>');
-           if (year == selectedYear && month - 1 == selectedMonth) {
-             $(tr).addClass('info');
-           }
-           $("#notes tbody").append(tr);
+    function addNotes(year, month, note_date, note_content) {
+        var tr = $('<tr> \
+            <td class="span2"><p class="muted"><small>' + note_date + '</small></p></td> \
+            <td class="span10">' + note_content + '</td> \
+        </tr>');
+        if (year == selectedYear && month - 1 == selectedMonth) {
+            $(tr).addClass('info');
         }
-    </script>
-    <div id="wrap">    
+        $("#notes tbody").append(tr);
+    }
+
+    function removeHighlight() {
+        $(".info").switchClass("info", "", {
+            duration: 5000, 
+            children: true,
+        });
+    }
+</script>
+<div id="wrap">    
     <div class="container">
         <div class="row detail-head">
             <blockquote class="">
-              <p>{{ reading.title }}</p>
-              {% if reading.author %}       
-                  <small>{{ reading.author }}</small>
-              {% else %}
-                  <br>
-              {% endif %}
+                <p>{{ reading.title }}</p>
+                {% if reading.author %}       
+                <small>{{ reading.author }}</small>
+                {% else %}
+                <br>
+                {% endif %}
             </blockquote>
         </div>
         <div class="row">
             <table id="notes" class="table table-striped">
-              <tbody>
+                <tbody>
                     <script>
                         {% for note in notes %}
-                            {% autoescape on %}
-                                addNotes({{ note.create_date|date:'Y' }}, 
-                                    {{ note.create_date|date:'m' }}, 
-                                    "{{ note.create_date|date:'Y-m-d H:i:s' }}", "{{ note.context|escape|linebreaksbr }}");
-                            {% endautoescape %}
+                        {% autoescape on %}
+                        addNotes({{ note.create_date|date:'Y' }}, 
+                        {{ note.create_date|date:'m' }}, 
+                        "{{ note.create_date|date:'Y-m-d H:i:s' }}", "{{ note.context|escape|linebreaksbr }}");
+                        {% endautoescape %}
                         {% endfor %}
+                        removeHighlight()
                     </script>
-              </tbody>
+                </tbody>
 
             </table>
         </div>
@@ -55,13 +63,13 @@
             <p class="text-right muted credit">This project is maintained by <a>watermelon</a>.</p>
         </div>
     </div>
-    </div>
+</div>
 {% endblock content %}
 {% block css %}
-    .detail-head {
-        margin-top: 50px
-    }
-    blockquote small:before {
-        content : ""
-    }
+.detail-head {
+margin-top: 50px
+}
+blockquote small:before {
+content : ""
+}
 {% endblock css %}
