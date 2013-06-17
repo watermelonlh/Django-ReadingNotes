@@ -28,7 +28,7 @@ def update_notes_from_github():
                 author = ""
                 if (soup.body.h5 != None):
                     author, = soup.body.h5.contents
-                reading, created = Reading.objects.get_or_create(title=str(title), author=str(author), reading_type=reading_type)
+                reading, created = Reading.objects.get_or_create(title=str(title), reading_type=reading_type)
 
                 update_date = None
                 if (not created):
@@ -50,6 +50,8 @@ def update_notes_from_github():
                     #print "'%s'" % str(note_contents)
                     i += 3
                 reading.update_date = datetime.utcnow().replace(tzinfo=timezone.utc)
+                if len(author) > 0:
+                    reading.author = author
                 reading.save()
         except Exception as e:
             print e
